@@ -8,15 +8,15 @@ def draw_rhombus(x, y, size, fill_color, pen_color):
     fill_color - "Цвет заливки внутренней области ромба"
     pen_color - "Цвет контура (линий) ромба"""
     turtle.penup()
-    turtle.goto(x, y + size)  # Верхняя точка
+    turtle.goto(x, y + size) 
     turtle.pendown()
     turtle.color(pen_color, fill_color)
 
     turtle.begin_fill()
-    turtle.goto(x + size, y)  # Правая точка
-    turtle.goto(x, y - size)  # Нижняя точка
-    turtle.goto(x - size, y)  # Левая точка
-    turtle.goto(x, y + size)  # Возврат в верхнюю точку
+    turtle.goto(x + size, y)  
+    turtle.goto(x, y - size)  
+    turtle.goto(x - size, y)  
+    turtle.goto(x, y + size)  
     turtle.end_fill()
 
 def draw_flower(x, y, radius, fill_color):
@@ -27,9 +27,9 @@ def draw_flower(x, y, radius, fill_color):
     fill_color - "Цвет заливки лепестков цветка"""
     turtle.penup()
     turtle.goto(x, y)
-    turtle.setheading(45)  # Поворачиваем, чтобы лепестки легли по диагоналям
+    turtle.setheading(45)  
     turtle.pendown()
-    turtle.color("#FFA500", fill_color)  # Оранжевый контур, заданная заливка
+    turtle.color("#FFA500", fill_color) 
 
     turtle.begin_fill()
     for _ in range(4):
@@ -58,17 +58,20 @@ def draw_circle(x, y, radius, fill_color):
 def main():
     screen = turtle.Screen()
     screen.setup(width=800, height=300)
-    screen.bgcolor("#1A1A1A")  # Темно-серый фон для контраста
+    # Темно-серый фон для контраста
+    screen.bgcolor("#1A1A1A")  
     screen.title("Цветной графический орнамент")
 
     turtle.speed(0)
-    turtle.hideturtle()  # Скрываем саму черепашку
+    turtle.hideturtle()
     turtle.pensize(2)
 
     start_x = -300
     y_pos = 0
-    step = 100  # Расстояние между центрами основных элементов
-    num_elements = 7  # Количество повторений
+    # Расстояние между центрами основных элементов
+    step = 100  
+    # Количество повторений
+    num_elements = 7  
 
     for i in range(num_elements):
         current_x = start_x + (i * step)
@@ -81,7 +84,7 @@ def main():
 
         # маленький ромб между основными
         if i < num_elements - 1:  # Не рисуем после последнего элемента
-            draw_rhombus(current_x + 50, y_pos, 15, "#228B22", "#32CD32")  # Зеленый
+            draw_rhombus(current_x + 50, y_pos, 15, "#228B22", "#32CD32") 
 
     turtle.done()
 
