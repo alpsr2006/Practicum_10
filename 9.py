@@ -1,51 +1,46 @@
-def seconds_since_new_year(datetime_str):
-    """
-    Альтернативная версия с константами.
-    """
-    # Константа: количество секунд в дне
-    SECONDS_IN_DAY = 86400
-    SECONDS_IN_HOUR = 3600
-    SECONDS_IN_MINUTE = 60
-
+def convert_datetime(datetime_str):
     try:
-        # Разбор строки
         date_part, time_part = datetime_str.strip().split()
         month, day, year = map(int, date_part.split('/'))
         hour, minute, second = map(int, time_part.split(':'))
 
-        # Проверка данных
         if month < 1 or month > 12:
-            raise ValueError("Неверный месяц")
+            print("Ошибка: Неверный месяц")
+            return
 
-        # Количество дней в месяцах для обычного года
-        DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        if day < 1 or day > 31:
+            print("Ошибка: Неверный день")
+            return
 
-        # Корректировка для високосного года
-        def is_leap(y):
-            return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
+        if hour < 0 or hour > 23:
+            print("Ошибка: Неверный час")
+            return
 
-        if is_leap(year):
-            DAYS_IN_MONTH[1] = 29
+        if minute < 0 or minute > 59:
+            print("Ошибка: Неверные минуты")
+            return
 
-        # Проверка дня
-        if day < 1 or day > DAYS_IN_MONTH[month - 1]:
-            raise ValueError("Неверный день")
+        if second < 0 or second > 59:
+            print("Ошибка: Неверные секунды")
+            return
 
-        # Проверка времени
-        if not (0 <= hour <= 23 and 0 <= minute <= 59 and 0 <= second <= 59):
-            raise ValueError("Неверное время")
+        # Форматирование даты
+        year_short = year % 100
+        formatted_date = f"{day:02d}.{month:02d}.{year_short:02d}"
 
-        # Расчет дней
-        days_passed = sum(DAYS_IN_MONTH[:month - 1]) + (day - 1)
+        # Преобразование времени
+        if hour == 0:
+            hour_12, period = 12, "AM"
+        elif hour < 12:
+            hour_12, period = hour, "AM"
+        elif hour == 12:
+            hour_12, period = 12, "PM"
+        else:
+            hour_12, period = hour - 12, "PM"
 
-        # Расчет секунд
-        total_seconds = (days_passed * SECONDS_IN_DAY +
-                         hour * SECONDS_IN_HOUR +
-                         minute * SECONDS_IN_MINUTE +
-                         second)
+        formatted_time = f"{hour_12:02d}:{minute:02d}:{second:02d} {period}"
 
-        return total_seconds
+        print(f"{formatted_date} {formatted_time}")
 
-    except (ValueError, IndexError) as e:
-        print(f"Ошибка: {e}")
-        return None
+    except (ValueError, IndexError):
+        print("Ошибка: Неверный формат строки. Ожидается: 'MM/DD/YYYY HR:MIN:SEC'")
