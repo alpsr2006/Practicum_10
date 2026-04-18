@@ -10,7 +10,6 @@ def calculate_final_price(price, has_discount_card, is_holiday):
     Возвращает:
     float - итоговая стоимость с округлением до двух знаков
     """
-    # Определяем базовую скидку
     if price > 30000:
         base = 10
     elif price > 20000:
@@ -30,7 +29,6 @@ def calculate_final_price(price, has_discount_card, is_holiday):
     # Ограничиваем максимум 15%
     total = min(total, 15)
 
-    # Возвращаем итоговую стоимость с округлением до 2 знаков
     return round(price * (100 - total) / 100, 2)
 
 print(calculate_final_price(4000, False, False))
