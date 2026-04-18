@@ -7,7 +7,6 @@ def calculate_card_value():
         float: Итоговая стоимость карты с бонусом
     """
 
-    # Константы: стоимость карт и соответствующие бонусы
     CARD_BONUSES = {
         5: 0,  # Карта $5 - без бонуса
         10: 0,  # Карта $10 - без бонуса
@@ -19,15 +18,13 @@ def calculate_card_value():
     # Запрашиваем стоимость карты у пользователя
     while True:
         try:
-            card_cost = float(input("Введите стоимость карты (5, 10, 25, 50 или 100): "))
+            card_cost = float(input("Введите стоимость карты "
+                                    "(5, 10, 25, 50 или 100): "))
 
-            # Проверяем, допустима ли введенная стоимость
             if card_cost in CARD_BONUSES:
-                # Получаем бонус и рассчитываем итоговую стоимость
                 bonus = CARD_BONUSES[card_cost]
                 final_value = card_cost + bonus
 
-                # Выводим информацию о бонусе
                 if bonus > 0:
                     print(f"Карта ${card_cost:.0f}: +${bonus} бонуса")
                 else:
@@ -42,10 +39,3 @@ def calculate_card_value():
             print("Ошибка! Пожалуйста, введите число.\n")
 
 
-# Пример использования
-if __name__ == "__main__":
-    print("=== Расчет стоимости телефонной карты ===\n")
-
-    result = calculate_card_value()
-
-    print(f"\nИтоговая стоимость карты с учетом бонуса: ${result:.2f}")
