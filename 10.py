@@ -1,5 +1,7 @@
 def seconds_since_new_year(datetime_str):
-    
+    """
+    Альтернативная версия с константами.
+    """
     SECONDS_IN_DAY = 86400
     SECONDS_IN_HOUR = 3600
     SECONDS_IN_MINUTE = 60
@@ -37,4 +39,5 @@ def seconds_since_new_year(datetime_str):
         return total_seconds
 
     except (ValueError, IndexError) as e:
-       
+        print(f"Ошибка: {e}")
+        return None
