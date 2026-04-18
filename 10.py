@@ -1,36 +1,40 @@
-def print_numbers_with_allowed_digits_math(a, b):
-    """
-    Версия с использованием математической проверки цифр.
-    """
-    ALLOWED_DIGITS = {1, 3, 4, 8, 9}
+def seconds_since_new_year(datetime_str):
+    
+    SECONDS_IN_DAY = 86400
+    SECONDS_IN_HOUR = 3600
+    SECONDS_IN_MINUTE = 60
 
-    # Обеспечиваем правильный порядок
-    if a > b:
-        a, b = b, a
-        print(f"Значения заменены. Диапазон: [{a}, {b}]")
+    try:
+        date_part, time_part = datetime_str.strip().split()
+        month, day, year = map(int, date_part.split('/'))
+        hour, minute, second = map(int, time_part.split(':'))
 
-    print(f"\nЧисла в диапазоне [{a}, {b}], состоящие из цифр {sorted(ALLOWED_DIGITS)}:")
+        if month < 1 or month > 12:
+            raise ValueError("Неверный месяц")
 
-    found_numbers = []
+        DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-    def has_only_allowed_digits(n):
-        """Проверяет, состоит ли число только из разрешенных цифр"""
-        if n == 0:
-            return False
+        # Корректировка для високосного года
+        def is_leap(y):
+            return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
 
-        while n > 0:
-            digit = n % 10
-            if digit not in ALLOWED_DIGITS:
-                return False
-            n //= 10
-        return True
+        if is_leap(year):
+            DAYS_IN_MONTH[1] = 29
 
-    for num in range(a, b + 1):
-        if has_only_allowed_digits(num):
-            found_numbers.append(num)
+        if day < 1 or day > DAYS_IN_MONTH[month - 1]:
+            raise ValueError("Неверный день")
 
-    if found_numbers:
-        print(*found_numbers)
-        print(f"\nКоличество: {len(found_numbers)}")
-    else:
-        print("Числа не найдены")
+        if not (0 <= hour <= 23 and 0 <= minute <= 59 and 0 <= second <= 59):
+            raise ValueError("Неверное время")
+
+        days_passed = sum(DAYS_IN_MONTH[:month - 1]) + (day - 1)
+
+        total_seconds = (days_passed * SECONDS_IN_DAY +
+                         hour * SECONDS_IN_HOUR +
+                         minute * SECONDS_IN_MINUTE +
+                         second)
+
+        return total_seconds
+
+    except (ValueError, IndexError) as e:
+       
