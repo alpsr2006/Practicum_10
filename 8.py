@@ -3,12 +3,10 @@ def convert_datetime(datetime_str):
     Упрощенная версия с основными проверками.
     """
     try:
-        # Разделяем строку
         date_part, time_part = datetime_str.strip().split()
         month, day, year = map(int, date_part.split('/'))
         hour, minute, second = map(int, time_part.split(':'))
 
-        # Базовая проверка
         if month < 1 or month > 12:
             print("Ошибка: Неверный месяц")
             return
