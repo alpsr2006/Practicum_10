@@ -1,4 +1,12 @@
 def convert_datetime(datetime_str):
+    """Функция преобразует дату и время из формата MM/DD/YYYY HR:MIN:SEC в формат DD.MM.YY HH:MM:SS AM/PM.
+    
+    Параметры:
+    datetime_str (str) строка с датой и временем в формате 'MM/DD/YYYY HR:MIN:SEC'
+    
+    Возвращает:
+    None функция выводит результат на экран, но ничего не возвращает
+    """
     try:
         date_part, time_part = datetime_str.strip().split()
         month, day, year = map(int, date_part.split('/'))
